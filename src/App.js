@@ -1,13 +1,17 @@
 import React from "react";
 import "./App.css";
 
+import './components/Header.js';
+import Header from "./components/Header.js";
+import PhotoCard from './components/PhotoCard/PhotoCard'
+
 function App() {
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun 🚀!
-      </p>
+      <Header/>
+      <section>
+        <PhotoCard/>
+      </section>
     </div>
   );
 }
