@@ -10,6 +10,7 @@ function PhotoCard() {
     const [ title, setTitle ] = useState("");
     const [ desc, setDesc ] = useState("");
     const [ newDate, setNewDate ] = useState("");
+    const [ count, setCount ] = useState(0);
 
     // Get Today's Date
     useEffect(() => {
@@ -25,28 +26,21 @@ function PhotoCard() {
         }
         let fullDate = `${year}-${month}-${day}`;
         setDate(fullDate);
-        axios.get(`https://api.nasa.gov/planetary/apod?api_key=3qBWScZagmjqE5SnUgsG5tA3nZiQAhasRHUFSzw2&date=${fullDate}`)
-        .then(res => {
-            setURL(res.data['url']);
-            setTitle(res.data['title']);
-            setDesc(res.data['explanation']);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        setCount(count + 1);
     }, []);
 
     useEffect(() => {
-        axios.get(`https://api.nasa.gov/planetary/apod?api_key=3qBWScZagmjqE5SnUgsG5tA3nZiQAhasRHUFSzw2&date=${currentDate}`)
-        .then(res => {
-            setURL(res.data['url']);
-            setTitle(res.data['title']);
-            setDesc(res.data['explanation']);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        console.log("first render");
+        if(count >= 1){
+            axios.get(`https://api.nasa.gov/planetary/apod?api_key=3qBWScZagmjqE5SnUgsG5tA3nZiQAhasRHUFSzw2&date=${currentDate}`)
+            .then(res => {
+                setURL(res.data['url']);
+                setTitle(res.data['title']);
+                setDesc(res.data['explanation']);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }, [currentDate])
 
 
