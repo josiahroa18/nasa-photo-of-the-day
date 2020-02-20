@@ -4,6 +4,7 @@ import "./App.css";
 import './components/Header.js';
 import Header from "./components/Header.js";
 import PhotoCard from './components/PhotoCard/PhotoCard'
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <section>
         <PhotoCard/>
       </section>
+      <Footer/>
     </div>
   );
 }

@@ -43,6 +43,7 @@ function PhotoCard() {
             })
             .catch(err => {
                 console.log(err);
+                // Handle image errors here
             })
         }
     }, [currentDate])
@@ -56,8 +57,7 @@ function PhotoCard() {
         console.log("Submitted Date ");
         setDate(newDate);
         setImageStatus(0);
-        // If date format is correct, update currentDate
-        // Otherwise, alert user to use correct format
+        // Handle date format here
     });
 
     const changeDate = (e => {
