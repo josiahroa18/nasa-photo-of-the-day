@@ -3,6 +3,8 @@ import Image from './Image';
 import Info from './Info';
 import ChangeDate from './ChangeDate';
 import axios from 'axios';
+import { Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 
 function PhotoCard() {
     const [ currentDate, setDate ] = useState("");
@@ -11,6 +13,8 @@ function PhotoCard() {
     const [ desc, setDesc ] = useState("");
     const [ newDate, setNewDate ] = useState("");
     const [ count, setCount ] = useState(0);
+
+    const [ imageStatus, setImageStatus ] = useState(0);
 
     // Get Today's Date
     useEffect(() => {
@@ -43,11 +47,15 @@ function PhotoCard() {
         }
     }, [currentDate])
 
+    const handleImageLoaded = () => {
+        setImageStatus(1);
+    }
 
     const submitDate = (e => {
         e.preventDefault();
         console.log("Submitted Date ");
         setDate(newDate);
+        setImageStatus(0);
         // If date format is correct, update currentDate
         // Otherwise, alert user to use correct format
     });
@@ -58,11 +66,19 @@ function PhotoCard() {
 
     return (
         <div className="photo-card">
-            <div className="change-date">
-                <ChangeDate submitDate={submitDate} value={newDate} change={changeDate}/>
-            </div>
-            <Image url={url}/>
-            <Info title={title} desc={desc}/>
+            <ChangeDate submitDate={submitDate} value={newDate} change={changeDate}/>
+            <Card>
+                <div style={{display: imageStatus ? "block" : "none"}}>
+                    <CardImg onLoad={handleImageLoaded} top width="100%" src={url} alt="Astronomy for the day" />
+                </div>
+                <div className="spinner" style={{display: imageStatus ? "none" : "flex"}}>
+                    <Spinner style={{ width: '3rem', height: '3rem'}} />
+                </div>
+                <CardBody>
+                <CardTitle>{title}</CardTitle>
+                <CardText>{desc}</CardText>
+                </CardBody>
+            </Card>
         </div>
     );
 }

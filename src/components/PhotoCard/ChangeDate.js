@@ -1,17 +1,22 @@
 import React from 'react';
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
+
 
 class ChangeDate extends React.Component{
     render(){
         return(
             <form onSubmit={this.props.submitDate}>
-                <p>Select Date: </p>
-                <input 
+                <InputGroup>
+                <InputGroupAddon addonType="prepend">Date</InputGroupAddon>
+                <Input 
                     type="text"
                     placeholder="YYYY-DD-MM"
                     value = {this.props.value}
                     onChange = {this.props.change}
-                ></input>
+                />
+            </InputGroup>
             </form>
+            
         );
     }
 }
